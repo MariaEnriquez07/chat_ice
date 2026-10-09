@@ -1,0 +1,16 @@
+plugins {
+    id 'java-library'
+    // Plugin oficial de ZeroC: compila los .ice con slice2java antes de compileJava
+    id 'com.zeroc.gradle.ice-builder.slice' version '1.5.2'
+}
+
+slice {
+    java {
+        files = [file('src/main/slice/Chat.ice')]
+    }
+}
+
+dependencies {
+    // 'api' para que server y client vean también las clases de Ice
+    api "com.zeroc:ice:${rootProject.ext.iceVersion}"
+}
