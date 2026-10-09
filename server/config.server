@@ -1,0 +1,26 @@
+# Configuración Ice del servidor (se puede sobreescribir con --Ice.X=valor)
+# El endpoint TCP se arma con Chat.Port; descomente para fijarlo a mano:
+# ChatAdapter.Endpoints=tcp -p 10000
+
+Chat.Port=10000
+Chat.AudioPort=10001
+
+# Solo IPv4 (evita direcciones ::ffff:x.x.x.x en el laboratorio)
+Ice.IPv6=0
+
+# Tamaño máximo de un mensaje Ice en KB. El valor por defecto es 1024 (1 MB).
+# Los archivos se mandan en bloques de 64 KB, muy por debajo de este límite.
+Ice.MessageSizeMax=2048
+
+# Pool de hilos de despacho: el servidor Ice es multihilo
+Ice.ThreadPool.Server.Size=4
+Ice.ThreadPool.Server.SizeMax=32
+
+# ACM: cierra conexiones sin actividad por 30 s (el cliente manda heartbeats
+# cada pocos segundos, así que solo se cierran las de clientes caídos)
+Ice.ACM.Server.Timeout=30
+Ice.ACM.Server.Close=4
+
+# Descomente para depurar
+# Ice.Trace.Network=1
+# Ice.Trace.Protocol=1
