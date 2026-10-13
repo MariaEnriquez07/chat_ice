@@ -1,0 +1,14 @@
+# Configuración Ice del cliente
+Ice.IPv6=0
+Ice.MessageSizeMax=2048
+
+# Heartbeats siempre (3 = HeartbeatAlways) cada ~Timeout/4 segundos: así el
+# servidor detecta si este cliente se cae. Nunca cerrar la conexión por
+# inactividad (0 = CloseOff), porque por ella llegan los callbacks.
+Ice.ACM.Client.Timeout=10
+Ice.ACM.Client.Heartbeat=3
+Ice.ACM.Client.Close=0
+
+# Tiempo máximo de espera de una invocación (ms)
+Ice.Default.InvocationTimeout=20000
+Ice.Warn.Connections=0

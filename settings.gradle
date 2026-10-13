@@ -1,0 +1,7 @@
+// Proyecto multimódulo:
+//   common -> contrato Slice (Chat.ice) + clases compartidas (genera los stubs Java)
+//   server -> servidor Ice + relay de audio UDP
+//   client -> cliente CLI + motor de voz UDP
+rootProject.name = 'chat-ice'
+
+include 'common', 'server', 'client'

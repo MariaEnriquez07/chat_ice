@@ -1,0 +1,18 @@
+// Configuración común a todos los módulos
+subprojects {
+    apply plugin: 'java'
+
+    repositories {
+        mavenCentral()
+    }
+
+    // Se compila para Java 11 para que funcione con JDK 11, 17 o 21.
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        options.release = 11
+    }
+}
+
+ext {
+    iceVersion = '3.7.10'
+}
