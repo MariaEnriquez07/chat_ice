@@ -1,0 +1,26 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':common')
+}
+
+application {
+    mainClass = 'server.ServerMain'
+}
+
+// ./gradlew runServer   [-Pport=10000] [-PaudioPort=10001]
+tasks.register('runServer', JavaExec) {
+    group = 'chat'
+    description = 'Inicia el servidor Ice (TCP) y el relay de audio (UDP)'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'server.ServerMain'
+    workingDir = projectDir            // aquí está config.server
+    standardInput = System.in
+    jvmArgs '-Dfile.encoding=UTF-8', '-Dstdout.encoding=UTF-8'
+    def a = []
+    if (project.hasProperty('port'))      a << "--Chat.Port=${project.property('port')}"
+    if (project.hasProperty('audioPort')) a << "--Chat.AudioPort=${project.property('audioPort')}"
+    args = a
+}

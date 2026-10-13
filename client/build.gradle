@@ -1,0 +1,30 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':common')
+}
+
+application {
+    mainClass = 'client.ClientMain'
+}
+
+// ./gradlew runClient -q   [-Phost=192.168.1.20] [-Pport=10000] [-Pnick=ana]
+//                          [-PudpPort=0] [-Pcolor=false] [-PtestTone=true]
+tasks.register('runClient', JavaExec) {
+    group = 'chat'
+    description = 'Inicia el cliente de chat en consola'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'client.ClientMain'
+    workingDir = projectDir            // config.client y carpeta downloads/
+    standardInput = System.in          // la consola necesita leer el teclado
+    jvmArgs '-Dfile.encoding=UTF-8', '-Dstdout.encoding=UTF-8'
+    if (project.hasProperty('testTone')) jvmArgs "-Dchat.testTone=${project.property('testTone')}"
+    def a = ['--host', project.findProperty('host') ?: 'localhost',
+             '--port', project.findProperty('port') ?: '10000']
+    if (project.hasProperty('nick'))    a += ['--nick', project.property('nick')]
+    if (project.hasProperty('udpPort')) a += ['--udp-port', project.property('udpPort')]
+    if (project.hasProperty('color'))   a += ['--color', project.property('color')]
+    args = a
+}
